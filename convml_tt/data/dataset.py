@@ -95,14 +95,21 @@ class ImageTripletDataset(_ImageDatasetBase):
         if set(n_tiles.values()) == 0:
             raise Exception(f"No {stage} data was found")
 
+        self._data = []
+        for index in range(n_tiles):
+            self._data.append(
+                {
+                    tile_type: self._get_image_tensor(index=index, tile_type=tile_type)
+                    for tile_type in TileType
+                }
+            )
+
     def get_image(self, index, tile_type):
         image_file_path = self.file_paths[tile_type][index]
         return self._read_image(image_file_path)
 
     def _get_image_tensor(self, index, tile_type):
-        return self._image_load_transforms(
-            self.get_image(index=index, tile_type=tile_type)
-        )
+        return self._data[index][tile_type]
 
     def __getitem__(self, index):
         item_contents = [
