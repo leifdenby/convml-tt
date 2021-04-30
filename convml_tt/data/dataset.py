@@ -98,12 +98,12 @@ class ImageTripletDataset(_ImageDatasetBase):
         self._data = []
         for index in tqdm(range(self.num_items)):
             self._data.append(
-                {
-                    tile_type: self._image_load_transforms(
+                [
+                    self._image_load_transforms(
                         self.get_image(index=index, tile_type=tile_type)
                     )
                     for tile_type in TileType
-                }
+                ]
             )
 
     def get_image(self, index, tile_type):
@@ -111,7 +111,7 @@ class ImageTripletDataset(_ImageDatasetBase):
         return self._read_image(image_file_path)
 
     def _get_image_tensor(self, index, tile_type):
-        return self._data[index][tile_type]
+        return self._data[index][tile_type.value]
 
     def __getitem__(self, index):
         item_contents = [
