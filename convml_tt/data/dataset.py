@@ -96,10 +96,12 @@ class ImageTripletDataset(_ImageDatasetBase):
             raise Exception(f"No {stage} data was found")
 
         self._data = []
-        for index in range(n_tiles):
+        for index in tqdm(range(self.num_items)):
             self._data.append(
                 {
-                    tile_type: self._get_image_tensor(index=index, tile_type=tile_type)
+                    tile_type: self._image_load_transforms(
+                        self.get_image(index=index, tile_type=tile_type)
+                    )
                     for tile_type in TileType
                 }
             )
