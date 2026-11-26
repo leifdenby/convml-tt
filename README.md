@@ -10,6 +10,10 @@ easier to modify and carry out further research on the technique.
 
 ## Getting started
 
+To reproduce the exact environment this branch was developed with (pinned
+package versions as of September 2023), see
+[doc/README.pinned-environment.md](doc/README.pinned-environment.md).
+
 To use the `convml_tt` codebase you will first need to install
 [pytorch](https://pytorch.org/) which can most easily by done with
 [conda](https://www.anaconda.com/distribution/) (or use
